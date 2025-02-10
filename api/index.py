@@ -40,7 +40,6 @@ def get_players_data():
         name_filter = request.args.get('name', default='', type=str)
         team_filter = request.args.get('team', default='', type=str)
         position_filter = request.args.get('position', default='', type=str)
-        is_historical = request.args.get('isHistorical', default='false', type=str) == 'true'
         
         query = supabase.table("player").select("*")
         
@@ -131,7 +130,7 @@ def fetch_nba_api(player_name):
 #function to fetch shot chart data from local json file     
 def fetch_shot_data(player_id):
     try:
-        df = pd.read_json('/shots.json')
+        df = pd.read_json(os.path.abspath('../shots.json'))
         df.set_index('playerId',inplace=True)
         
         return df.loc[player_id].to_list()
