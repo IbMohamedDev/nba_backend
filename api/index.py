@@ -10,7 +10,6 @@ def home():
 def about():
     return 'About'
 
-
 @app.route('/player')
-def about():
+def player():
     return 'This is a player'
