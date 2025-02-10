@@ -33,7 +33,7 @@ def player():
 
 
 
-@app.route('players', methods=["GET"])
+@app.route('/players', methods=["GET"])
 def get_players_data():
     
     try:
