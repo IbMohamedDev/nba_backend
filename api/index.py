@@ -82,40 +82,6 @@ def get_current_stats_data():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/player/<player_id>', methods=['GET'])
-def get_player_with_stats(player_id):
-    try:
-        player_response = supabase.table("player").select("*").eq("player_id", player_id).single().execute()
-        player_data = player_response.data if player_response and hasattr(player_response, 'data') else None
-
-        if not player_data:
-            return jsonify({"error": "Player not found"}), 404
-
-        player_name = player_data['player']  # Assuming 'player' contains the player's full name
-        nba_api_id = fetch_nba_api(player_name)
-
-        # Fetch stats data
-        stats_response = supabase.table("current_stats").select("*").eq("player_id", player_id).single().execute()
-        stats_data = stats_response.data if stats_response and hasattr(stats_response, 'data') else {}
-
-        # Fetch awards data
-        awards_response = supabase.table("awards").select("*").eq("player_id", player_id).execute()
-        awards_data = awards_response.data if awards_response and hasattr(awards_response, 'data') else {}
-
-        shots = fetch_shot_data(player_id)
-        result = {
-            "player": player_data,
-            "stats": stats_data,
-            "awards": awards_data,
-            "nba_id": nba_api_id,
-            "headshot_url": f"https://cdn.nba.com/headshots/nba/latest/1040x760/{nba_api_id}.png" if nba_api_id else None,
-            "shot_data": shots
-        }
-
-        return jsonify(result)
-    except Exception as e:
-        print("Error:", e)
-        return jsonify({"error": str(e)}), 500
 
 # Function to fetch NBA API player ID by full name
 def fetch_nba_api(player_name):
