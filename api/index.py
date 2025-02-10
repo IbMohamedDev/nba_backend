@@ -130,7 +130,7 @@ def fetch_nba_api(player_name):
 #function to fetch shot chart data from local json file     
 def fetch_shot_data(player_id):
     try:
-        df = pd.read_json(os.path.abspath('../shots.json'))
+        df = pd.read_json('shots.json')
         df.set_index('playerId',inplace=True)
         
         return df.loc[player_id].to_list()
