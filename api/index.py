@@ -97,6 +97,7 @@ def get_player_with_stats(player_id):
         awards_data = awards_response.data if awards_response and hasattr(awards_response, 'data') else {}
 
         shots = fetch_shot_data(player_id)
+        
         result = {
             "player": player_data,
             "stats": stats_data,
@@ -125,7 +126,7 @@ def fetch_nba_api(player_name):
 #function to fetch shot chart data from local json file     
 def fetch_shot_data(player_id):
     try:
-        df = pd.read_json('shots.json')
+        df = pd.read_json('api/shots.json')
         df.set_index('playerId',inplace=True)
        
         return df.loc[player_id].to_list()
