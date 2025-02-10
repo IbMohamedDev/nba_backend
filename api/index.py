@@ -37,10 +37,9 @@ def player():
 def get_players_data():
     
     try:
-        name_filter = request.args.get('name', default='', type=str)
-        team_filter = request.args.get('team', default='', type=str)
-        position_filter = request.args.get('position', default='', type=str)
-        is_historical = request.args.get('isHistorical', default='false', type=str) == 'true'
+        name_filter = request.args.get('name', type=str)
+        team_filter = request.args.get('team', type=str)
+        position_filter = request.args.get('position',  type=str)
         
         query = supabase.table("player").select("*")
         
