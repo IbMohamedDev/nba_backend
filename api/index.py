@@ -19,20 +19,15 @@ if not supabase_url or not supabase_key:
 
 supabase = create_client(supabase_url, supabase_key)
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
 
 @app.route('/about')
 def about():
     return 'About'
 
-@app.route('/player')
-def player():
-    return 'This is a player'
 
 
 
+@app.route('/')
 @app.route('/players', methods=["GET"])
 def get_players_data():
     
@@ -132,7 +127,7 @@ def fetch_shot_data(player_id):
     try:
         df = pd.read_json('shots.json')
         df.set_index('playerId',inplace=True)
-        
+       
         return df.loc[player_id].to_list()
     except Exception as e:
         print("Error fetch_shot_data:", e)
