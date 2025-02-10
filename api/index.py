@@ -33,7 +33,7 @@ def player():
 
 
 
-@app.route("/players", methods=["GET"])
+@app.route('players', methods=["GET"])
 def get_players_data():
     
     try:
@@ -61,7 +61,7 @@ def get_players_data():
     
     
     
-@app.route("/career_stats", methods=["GET"])
+@app.route('/career_stats', methods=["GET"])
 def get_career_stats_data():
     try:
         response = supabase.table("career_stats").select("*").execute()
@@ -72,7 +72,7 @@ def get_career_stats_data():
 
     
     
-@app.route("/season_stats", methods=["GET"])
+@app.route('/season_stats', methods=["GET"])
 def get_current_stats_data():
     try:
         response = supabase.table("current_stats").select("*").execute()
